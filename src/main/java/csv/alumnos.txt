@@ -1,0 +1,5 @@
+nombre,apellido,fechaNacimiento,genero,dni,ciudad,legajo
+Agustín,Menchón,1990-07-12,m,40223478,Tandil,1111
+Belén,Fernández Gayral,1998-03-08,f,40942279,2222
+Ezequiel,Martínez,1997-10-04,m,39826645,3333
+Tano,Mengarelli Yespersen,1999-01-20,m,41234789,4444
