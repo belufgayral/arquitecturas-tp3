@@ -1,4 +1,4 @@
-package entities;
+package com.example.tp3.entities;
 
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.JoinColumn;

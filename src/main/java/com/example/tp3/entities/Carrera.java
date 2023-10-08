@@ -1,4 +1,4 @@
-package entities;
+package com.example.tp3.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
