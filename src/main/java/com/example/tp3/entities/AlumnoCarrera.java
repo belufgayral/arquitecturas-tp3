@@ -13,24 +13,24 @@ public class AlumnoCarrera {
     @EmbeddedId
     private AlumnoCarreraId id;
     @Column
-    private Date fechaInscripcion;
+    private int fechaInscripcion;
     @Column
     private boolean graduado;
     @Column
-    private Date fechaGraduacion;
+    private int fechaGraduacion;
 
     public AlumnoCarrera() {
         super();
     }
 
-    public AlumnoCarrera(AlumnoCarreraId id, Date fechaInscripcion, boolean graduado) {
+    public AlumnoCarrera(AlumnoCarreraId id, int fechaInscripcion, boolean graduado) {
         super();
         this.id = id;
         this.fechaInscripcion = fechaInscripcion;
         this.graduado = graduado;
     }
 
-    public AlumnoCarrera(AlumnoCarreraId id, Date fechaInscripcion, boolean graduado, Date fechaGraduacion) {
+    public AlumnoCarrera(AlumnoCarreraId id, int fechaInscripcion, boolean graduado, int fechaGraduacion) {
         this.id = id;
         this.fechaInscripcion = fechaInscripcion;
         this.graduado = graduado;

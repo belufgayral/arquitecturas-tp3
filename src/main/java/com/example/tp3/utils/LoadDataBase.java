@@ -32,6 +32,7 @@ class LoadDatabase {
             log.info("Preloading " + carreraRepository.save(c2));
             log.info("Preloading " + carreraRepository.save(c3));
 
+
         };
     }
 

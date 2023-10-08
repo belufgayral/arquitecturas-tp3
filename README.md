@@ -8,7 +8,7 @@ Tome como punto de partida el ejercicio integrador del TP2
    si se graduó o no.
 
 2) Implementar las consultas mediante servicios REST para:
-   a) dar de alta un estudiante
+   a) dar de alta un estudiante CHECK
 
    b) matricular un estudiante en una carrera
 
