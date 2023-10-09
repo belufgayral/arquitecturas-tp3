@@ -1,5 +1,7 @@
 package com.example.tp3.controllers;
 
+import com.example.tp3.DTO.AlumnoCarreraDTO;
+import com.example.tp3.DTO.AlumnoDTO;
 import com.example.tp3.entities.AlumnoCarrera;
 import com.example.tp3.services.AlumnoCarreraService;
 import com.example.tp3.services.AlumnoService;
@@ -7,6 +9,8 @@ import com.example.tp3.entities.Alumno;
 import com.example.tp3.services.CarreraService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -27,9 +31,29 @@ public class AlumnoController {
 
     //Recuperar todos los alumnos y especificar algún criterio de ordenamiento simple.
     @GetMapping()
-    public ArrayList<Alumno> getAlumnos(){
+    public ArrayList<AlumnoDTO> getAlumnos(@RequestParam(required = false ) String ciudad, @RequestParam(required = false ) String carrera){
+        //  carrera = "tudai"
+        //  ciudad = "tandil"
+        //  ENDPOINT: alumnos?carrera=tudai&ciudad=tandil
+        // probar con el POSTMAN en GET con esta url
+        //  http://localhost:8080/alumnos?carrera=tudai&ciudad=tandil
+        //  http://localhost:8080/alumnos?carrera=sistemas&ciudad=tandil
         Sort sort = Sort.by(Sort.Direction.ASC, "nombre");
-        return this.alumnoService.getAlumnos(sort);
+
+        ArrayList<AlumnoDTO> lista = new ArrayList<>();
+        if(carrera!=null){
+            if(ciudad!=null){
+                lista.addAll(this.alumnoService.getByCarreraAndCiudad(carrera,ciudad,sort));
+            } else {
+                lista.addAll(this.alumnoService.getByCarrera(carrera, sort));
+            }
+        } else if(ciudad!=null) {
+            lista.addAll(this.alumnoService.getByCiudad(ciudad, sort));
+        } else{
+            lista.addAll(this.alumnoService.getAlumnos(sort));
+        }
+
+        return lista;
     }
 
 
@@ -64,11 +88,18 @@ public class AlumnoController {
     public List<Alumno> getByGenero(@PathVariable("genero") String genero){
         return this.alumnoService.getByGenero(genero);
     }
-//
-//    @PostMapping()
-//    public AlumnoCarrera matricularAlumno(@RequestBody AlumnoCarrera ac) {
-//        return this.alumnoCarreraService.matricularAlumno(ac);
-//    }
+
+    //@RequestMapping(value="/matricular", method=RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping("/matricular")
+    public ResponseEntity<?> matricularAlumno(@RequestBody AlumnoCarreraDTO acDTO) {
+        //System.out.println(acDTO.toString());
+        try{
+            return ResponseEntity.status(200).body(alumnoService.matricularAlumno(acDTO));
+        }catch (Exception err){
+            return ResponseEntity.status(404).body(err.getMessage());
+        }
+    }
+
 
     @DeleteMapping(path = "/{id}")
     public String deleteByID(@PathVariable("id") Integer id){

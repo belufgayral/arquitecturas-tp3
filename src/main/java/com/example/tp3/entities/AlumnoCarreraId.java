@@ -27,5 +27,13 @@ public class AlumnoCarreraId implements Serializable {
         this.alumno = alumno;
         this.carrera = carrera;
     }
+
+    @Override
+    public String toString() {
+        return "AlumnoCarreraId{" +
+                "alumno=" + alumno +
+                ", carrera=" + carrera +
+                '}';
+    }
 }
 
