@@ -1,6 +1,7 @@
 package com.example.tp3.controllers;
 
 import com.example.tp3.DTO.CarrerasInscriptosDTO;
+import com.example.tp3.DTO.ReporteCarreraDTO;
 import com.example.tp3.entities.Alumno;
 import com.example.tp3.entities.Carrera;
 import com.example.tp3.services.CarreraService;
@@ -27,6 +28,13 @@ public class CarreraController {
     @GetMapping(path =  "/{carrera}")
     public Optional<Carrera> getCarrera(@PathVariable("carrera") int id){
         return this.carreraService.findById(id);
+    }
+
+    @GetMapping(path =  "/reporte")
+    public List<ReporteCarreraDTO> getReporteCarreras(){
+        List<ReporteCarreraDTO> list = new ArrayList<>();
+        list.addAll(this.carreraService.getReporteCarreras());
+        return list;
     }
 
     @PostMapping()

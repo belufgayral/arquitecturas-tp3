@@ -2,14 +2,11 @@ package com.example.tp3.controllers;
 
 import com.example.tp3.DTO.AlumnoCarreraDTO;
 import com.example.tp3.DTO.AlumnoDTO;
-import com.example.tp3.entities.AlumnoCarrera;
-import com.example.tp3.services.AlumnoCarreraService;
 import com.example.tp3.services.AlumnoService;
 import com.example.tp3.entities.Alumno;
 import com.example.tp3.services.CarreraService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,8 +22,6 @@ public class AlumnoController {
     private AlumnoService alumnoService;
     @Autowired
     private CarreraService carreraService;
-    @Autowired
-    private AlumnoCarreraService alumnoCarreraService;
 
 
     //Recuperar todos los alumnos y especificar algún criterio de ordenamiento simple.
@@ -35,7 +30,10 @@ public class AlumnoController {
         //  carrera = "tudai"
         //  ciudad = "tandil"
         //  ENDPOINT: alumnos?carrera=tudai&ciudad=tandil
+
         // probar con el POSTMAN en GET con esta url
+        // /alumnos/carrera/{carrera}/ciudad/{ciudad}
+
         //  http://localhost:8080/alumnos?carrera=tudai&ciudad=tandil
         //  http://localhost:8080/alumnos?carrera=sistemas&ciudad=tandil
         Sort sort = Sort.by(Sort.Direction.ASC, "nombre");
