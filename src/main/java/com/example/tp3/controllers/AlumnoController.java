@@ -27,7 +27,7 @@ public class AlumnoController {
 
     //Recuperar todos los alumnos y especificar algún criterio de ordenamiento simple.
     @GetMapping()
-    public ArrayList<AlumnoDTO> getAlumnos(@RequestParam(required = false ) String ciudad, @RequestParam(required = false ) String carrera){
+    public ResponseEntity<?> getAlumnos(@RequestParam(required = false ) String ciudad, @RequestParam(required = false ) String carrera){
         //  carrera = "tudai"
         //  ciudad = "tandil"
         //  ENDPOINT: alumnos?carrera=tudai&ciudad=tandil
@@ -38,21 +38,25 @@ public class AlumnoController {
         //  http://localhost:8080/alumnos?carrera=tudai&ciudad=tandil
         //  http://localhost:8080/alumnos?carrera=sistemas&ciudad=tandil
         Sort sort = Sort.by(Sort.Direction.ASC, "nombre");
-
-        ArrayList<AlumnoDTO> lista = new ArrayList<>();
-        if(carrera!=null){
-            if(ciudad!=null){
-                lista.addAll(this.alumnoService.getByCarreraAndCiudad(carrera,ciudad,sort));
-            } else {
-                lista.addAll(this.alumnoService.getByCarrera(carrera, sort));
+        try{
+            if(carrera!=null){
+                if(ciudad!=null){
+                    return ResponseEntity.status(HttpStatus.OK).body(alumnoService.getByCarreraAndCiudad(carrera,ciudad,sort));
+                    //lista.addAll(this.alumnoService.getByCarreraAndCiudad(carrera,ciudad,sort));
+                } else {
+                    return ResponseEntity.status(HttpStatus.OK).body(alumnoService.getByCarrera(carrera, sort));
+                    //lista.addAll(this.alumnoService.getByCarrera(carrera, sort));
+                }
+            } else if(ciudad!=null) {
+                return ResponseEntity.status(HttpStatus.OK).body(alumnoService.getByCiudad(ciudad, sort));
+                //lista.addAll(this.alumnoService.getByCiudad(ciudad, sort));
+            } else{
+                return ResponseEntity.status(HttpStatus.OK).body(alumnoService.getAlumnos(sort));
+                //lista.addAll(this.alumnoService.getAlumnos(sort));
             }
-        } else if(ciudad!=null) {
-            lista.addAll(this.alumnoService.getByCiudad(ciudad, sort));
-        } else{
-            lista.addAll(this.alumnoService.getAlumnos(sort));
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo ingresar, revise los campos e intente nuevamente.\"}");
         }
-
-        return lista;
     }
 
 
