@@ -12,11 +12,11 @@ import java.util.Optional;
 
 public interface CarreraRepository extends JpaRepository<Carrera, Integer> {
 
-    @Query("SELECT new com.example.tp3.DTO.CarrerasInscriptosDTO(c.nombre, COUNT(ac.id.carrera))" + "FROM AlumnoCarrera ac JOIN ac.id.carrera c GROUP BY c ORDER BY COUNT(ac.id.carrera) DESC")
-    public Iterable<CarrerasInscriptosDTO> listarCarrerasConAlumnosIncriptos();
+//    @Query("SELECT new com.example.tp3.DTO.CarrerasInscriptosDTO(c.nombre, COUNT(ac.id.carrera))" + "FROM AlumnoCarrera ac JOIN ac.id.carrera c GROUP BY c ORDER BY COUNT(ac.id.carrera) DESC")
+//    public Iterable<CarrerasInscriptosDTO> listarCarrerasConAlumnosIncriptos();
 
-//    @Query("SELECT c.nombre, COUNT(ac.id.carrera)" + "FROM AlumnoCarrera ac JOIN ac.id.carrera c GROUP BY c")
-//    public List<CarrerasInscriptosDTO> listarCarrerasConAlumnosIncriptos(Sort sort);
+    @Query("SELECT COUNT(ac.id.carrera) as cantInscriptos, c.nombre as nombreCarrera " + " FROM AlumnoCarrera ac JOIN ac.id.carrera c GROUP BY c")
+    public List<CarrerasInscriptosDTO> listarCarrerasConAlumnosIncriptos(Sort sort);
 
     public abstract Optional<Carrera> findByNombre(String nombre);
 }

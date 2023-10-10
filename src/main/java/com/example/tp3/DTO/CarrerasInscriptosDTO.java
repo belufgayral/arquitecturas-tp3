@@ -6,24 +6,28 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Getter
-@NoArgsConstructor
-public class CarrerasInscriptosDTO {
-    @JsonProperty("nombreCarrera")
-    private String nombreCarrera;
-    @JsonProperty("cantInscriptos")
-    private Long cantInscriptos;
+//@Getter
+//@NoArgsConstructor
+public interface CarrerasInscriptosDTO {
+    String getCantInscriptos();
+    String getNombreCarrera();
 
-    public CarrerasInscriptosDTO(String nombreCarrera, Long cantInscriptos) {
-        this.nombreCarrera = nombreCarrera;
-        this.cantInscriptos = cantInscriptos;
-    }
 
-    public String getNombre() {
-        return nombreCarrera;
-    }
-
-    public Long getCantInscriptos() {
-        return cantInscriptos;
-    }
+//    @JsonProperty("nombreCarrera")
+//    private String nombreCarrera;
+//    @JsonProperty("cantInscriptos")
+//    private Long cantInscriptos;
+//
+//    public CarrerasInscriptosDTO(String nombreCarrera, Long cantInscriptos) {
+//        this.nombreCarrera = nombreCarrera;
+//        this.cantInscriptos = cantInscriptos;
+//    }
+//
+//    public String getNombre() {
+//        return nombreCarrera;
+//    }
+//
+//    public Long getCantInscriptos() {
+//        return cantInscriptos;
+//    }
 }

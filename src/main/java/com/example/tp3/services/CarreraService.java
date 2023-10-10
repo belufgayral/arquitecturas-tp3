@@ -34,9 +34,13 @@ public class CarreraService {
         return this.carreraRepository.save(c);
     }
 
-    public Iterable<CarrerasInscriptosDTO> listarCarrerasConAlumnosIncriptos(){
-        //Sort sort = Sort.by(Sort.Direction.DESC, "cantInscriptos");
-        return this.carreraRepository.listarCarrerasConAlumnosIncriptos();
+    public List<CarrerasInscriptosDTO> listarCarrerasConAlumnosIncriptos() throws Exception {
+        try{
+            Sort sort = Sort.by(Sort.Direction.DESC, "cantInscriptos");
+            return this.carreraRepository.listarCarrerasConAlumnosIncriptos(sort);
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
     }
 
     public List<ReporteCarreraDTO> getReporteCarreras(){
