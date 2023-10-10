@@ -21,8 +21,6 @@ public class AlumnoController {
 
     @Autowired
     private AlumnoService alumnoService;
-    @Autowired
-    private CarreraService carreraService;
 
 
     //Recuperar todos los alumnos y especificar algún criterio de ordenamiento simple.
@@ -33,7 +31,6 @@ public class AlumnoController {
         //  ENDPOINT: alumnos?carrera=tudai&ciudad=tandil
 
         // probar con el POSTMAN en GET con esta url
-        // /alumnos/carrera/{carrera}/ciudad/{ciudad}
 
         //  http://localhost:8080/alumnos?carrera=tudai&ciudad=tandil
         //  http://localhost:8080/alumnos?carrera=sistemas&ciudad=tandil
@@ -110,7 +107,6 @@ public class AlumnoController {
         }
     }
 
-    //@RequestMapping(value="/matricular", method=RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE)
     @PostMapping("/matricular")
     public ResponseEntity<?> matricularAlumno(@RequestBody AlumnoCarreraDTO acDTO) {
         try{
@@ -122,12 +118,11 @@ public class AlumnoController {
 
 
     @DeleteMapping(path = "/{id}")
-    public String deleteByID(@PathVariable("id") Integer id){
-        boolean ok = this.alumnoService.deleteAlumno(id);
-        if(ok){
-            return "Eliminado con exito";
-        } else {
-            return "No se pudo eliminar el alumno con id " + id;
+    public ResponseEntity<?> deleteByID(@PathVariable("id") Integer id){
+        try{
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(alumnoService.deleteAlumno(id));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. no se pudo eliminar el alumno con id  \"" + id + ". intente nuevamente.\"}");
         }
     }
 

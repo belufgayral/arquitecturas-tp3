@@ -62,8 +62,18 @@ public class AlumnoService {
         return this.alumnoRepository.findById(id);
     }
 
-    public boolean deleteAlumno(Integer id){
-        return this.alumnoRepository.deleteAlumnoById(id);
+    public boolean deleteAlumno(Integer id) throws Exception {
+        //return this.alumnoRepository.deleteAlumnoById(id);
+        try{
+            if(alumnoRepository.existsById(id)){
+                alumnoRepository.deleteById(id);
+                return true;
+            }else{
+                throw new Exception();
+            }
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
     }
 
     public List<AlumnoDTO> getByCiudad(String ciudad, Sort sort) {
