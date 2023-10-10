@@ -1,4 +1,4 @@
-# TP3 Arquitecturas Web.
+# TP3 Arquitecturas Web
 
 Tome como punto de partida el ejercicio integrador del TP2
 
@@ -27,6 +27,41 @@ Tome como punto de partida el ejercicio integrador del TP2
    presentar los años de manera cronológica.
 
 3) Testear la invocación a los servicios REST mediante Postman, o cliente similar.
+
+## Endpoints para testeo
+
+A. http://localhost:8080/alumnos
+
+{
+"nombre": "Pepito",
+"apellido": "Fernándoez",
+"fechaNacimiento": "2018-01-10",
+"genero": "masculino",
+"dni": 27689716,
+"ciudad": "Olavarría",
+"legajo": 1276372
+}
+
+B. http://localhost:8080/alumnos/matricular
+
+{
+"id_Alumno": 5,
+"id_Carrera": 1,
+"fechaInscripcion": 2021,
+"fechaGraduacion": 2023
+}
+
+C. http://localhost:8080/alumnos
+
+D. http://localhost:8080/alumnos/legajo/1234
+
+E. http://localhost:8080/alumnos/genero/masculino
+
+F. http://localhost:8080/carreras/inscriptos
+
+G. http://localhost:8080/alumnos?carrera=tudai&ciudad=tandil
+
+H. http://localhost:8080/carreras/reporte
 
 ## Autores:
 
