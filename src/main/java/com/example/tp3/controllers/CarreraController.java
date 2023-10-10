@@ -1,17 +1,13 @@
 package com.example.tp3.controllers;
 
-import com.example.tp3.DTO.CarrerasInscriptosDTO;
-import com.example.tp3.DTO.ReporteCarreraDTO;
-import com.example.tp3.entities.Alumno;
+
 import com.example.tp3.entities.Carrera;
 import com.example.tp3.services.CarreraService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/carreras")
@@ -21,25 +17,39 @@ public class CarreraController {
     private CarreraService carreraService;
 
     @GetMapping()
-    public ArrayList<Carrera> getCarreras() {
-        return this.carreraService.getCarreras();
+    public ResponseEntity<?> getCarreras() {
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(carreraService.getCarreras());
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se encuentra el objeto buscado");
+        }
     }
 
     @GetMapping(path =  "/{carrera}")
-    public Optional<Carrera> getCarrera(@PathVariable("carrera") int id){
-        return this.carreraService.findById(id);
+    public ResponseEntity<?> getCarrera(@PathVariable("carrera") int id){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(carreraService.findById(id));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se encuentra el objeto buscado");
+        }
     }
 
     @GetMapping(path =  "/reporte")
-    public List<ReporteCarreraDTO> getReporteCarreras(){
-        List<ReporteCarreraDTO> list = new ArrayList<>();
-        list.addAll(this.carreraService.getReporteCarreras());
-        return list;
+    public ResponseEntity<?> getReporteCarreras(){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(carreraService.getReporteCarreras());
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se encuentra el objeto buscado");
+        }
     }
 
     @PostMapping()
-    public Carrera addAlumno(@RequestBody Carrera c){
-        return this.carreraService.addCarrera(c);
+    public ResponseEntity<?> addAlumno(@RequestBody Carrera c){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(carreraService.addCarrera(c));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo ingresar, revise los campos e intente nuevamente.\"}");
+        }
     }
 
     @GetMapping(path = "/inscriptos")
